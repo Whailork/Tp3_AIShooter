@@ -43,6 +43,8 @@ public:
 	int StartingHealth;
 	
 	int Health;
+	UPROPERTY(EditAnywhere)
+	int GunDamage;
 	UFUNCTION(BlueprintCallable)
 	int getStartingHealth();
 	void loseHealth(int amount);
