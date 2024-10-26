@@ -81,6 +81,10 @@ int ATP3ShootCharacter::getStartingHealth()
 void ATP3ShootCharacter::loseHealth(int amount)
 {
 	Health -= amount;
+	if( Health <= 0)
+	{
+		Destroy();
+	}
 }
 
 int ATP3ShootCharacter::getHealth()
@@ -92,6 +96,7 @@ void ATP3ShootCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	Health = StartingHealth;
+	spawnPoint = GetActorLocation();
 }
 
 //////////////////////////////////////////////////////////////////////////
