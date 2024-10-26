@@ -20,8 +20,11 @@ class TP3SHOOT_API AAICharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
-
 	
+	
+
+	UPROPERTY(EditAnywhere, Category = "Teams")
+	bool ally;
 
 public:
 	// Sets default values for this character's properties
@@ -36,6 +39,18 @@ public:
 	float wanderRadius;
 	UPROPERTY(EditAnywhere)
 	float wanderDistance;
+	UPROPERTY(EditAnywhere)
+	int StartingHealth;
+	
+	int Health;
+	UFUNCTION(BlueprintCallable)
+	int getStartingHealth();
+	void loseHealth(int amount);
+	UFUNCTION(BlueprintCallable)
+	int getHealth();
+
+	UFUNCTION(BlueprintCallable)
+	bool isAlly();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	UPROPERTY(EditAnywhere, Category = "AI")

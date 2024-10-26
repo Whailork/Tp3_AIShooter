@@ -2,6 +2,7 @@
 
 #include "TP3ShootCharacter.h"
 
+#include "AICharacter.h"
 #include "TimerManager.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -124,7 +125,8 @@ void ATP3ShootCharacter::StopAiming()
 void ATP3ShootCharacter::Fire()
 {
 	FVector Start, LineTraceEnd, ForwardVector;
-
+	FHitResult HitResult;
+	
 	if (IsAiming)
 	{
 
@@ -145,6 +147,18 @@ void ATP3ShootCharacter::Fire()
 		// Get End Point
 		LineTraceEnd = Start + (ForwardVector * 10000);
 	}
+
+	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_WorldDynamic);
+	AActor* test = HitResult.HitObjectHandle.FetchActor();
+	if(auto hitCharacter = Cast<AAICharacter>(test))
+	{
+		if(!hitCharacter->isAlly())
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
+		}
+		
+	}
+	
 }
 
 
