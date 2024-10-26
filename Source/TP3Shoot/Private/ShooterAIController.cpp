@@ -7,12 +7,30 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Perception/AIPerceptionComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
 
 AShooterAIController::AShooterAIController(const FObjectInitializer& ObjectInitializer)
 {
     // Create BT Component
     BehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTree Component"));
     BlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackBoard Component"));
+
+    PerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("PerceptionComponent"));
+
+    SetPerceptionComponent(*PerceptionComponent);
+
+    SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
+
+    SightConfig->PeripheralVisionAngleDegrees = 90.0f;
+    SightConfig->SightRadius = 3000.0f;
+    SightConfig->SetMaxAge(10.0f);
+    SightConfig->AutoSuccessRangeFromLastSeenLocation = 200.0f;
+    SightConfig->LoseSightRadius = 3500;
+    SightConfig->DetectionByAffiliation.bDetectEnemies = true;
+    SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
+    SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+
 }
 
 void AShooterAIController::OnPossess(APawn* InPawn)
