@@ -17,4 +17,11 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 	class UBehaviorTreeComponent* BehaviorTreeComponent;
 	UPROPERTY(Transient)
 	class UBlackboardComponent* BlackboardComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	class UAIPerceptionComponent* AIPerceptionComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	class UAISenseConfig_Sight* SightConfig;
+
 };
