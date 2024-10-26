@@ -47,6 +47,7 @@ AAICharacter::AAICharacter()
 	// Set parent socket
 	SK_Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("GripPoint"));
 
+	
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
@@ -58,6 +59,7 @@ void AAICharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	Health = StartingHealth;
+	spawnPoint = GetActorLocation();
 	
 }
 
@@ -69,11 +71,30 @@ int AAICharacter::getStartingHealth()
 void AAICharacter::loseHealth(int amount)
 {
 	Health -= amount;
+	if( Health <= 0)
+	{
+		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AAICharacter::Respawn, 3, false);
+	
+		GetMesh()->SetSimulatePhysics(true);
+		GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
+		
+	}
 }
 
 int AAICharacter::getHealth()
 {
 	return Health;
+}
+
+void AAICharacter::Respawn()
+{
+	TeleportTo(spawnPoint,FRotator(0,0,0));
+	GetMesh()->SetSimulatePhysics(false);
+	GetMesh()->SetCollisionProfileName(TEXT("CharacterMesh"));
+	
+	Health = StartingHealth;
+	
+	RespawnTimerHandle.Invalidate();
 }
 
 bool AAICharacter::isAlly()

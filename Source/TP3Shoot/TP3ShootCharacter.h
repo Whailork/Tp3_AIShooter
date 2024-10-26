@@ -32,6 +32,7 @@ public:
 	int StartingHealth;
 	UPROPERTY(EditAnywhere)
 	int GunDamage;
+	FVector spawnPoint;
 
 	int getStartingHealth();
 	void loseHealth(int amount);
