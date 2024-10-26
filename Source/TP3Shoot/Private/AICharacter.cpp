@@ -73,8 +73,12 @@ void AAICharacter::loseHealth(int amount)
 	Health -= amount;
 	if( Health <= 0)
 	{
+		auto rotation = GetActorTransform().GetRotation();
+				
 		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AAICharacter::Respawn, 3, false);
-	
+		GetMovementComponent()->StopMovementImmediately();
+		GetMovementComponent()->StopActiveMovement();
+		GetMovementComponent()->SetComponentTickEnabled(false);
 		GetMesh()->SetSimulatePhysics(true);
 		GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
 		
@@ -88,9 +92,13 @@ int AAICharacter::getHealth()
 
 void AAICharacter::Respawn()
 {
-	TeleportTo(spawnPoint,FRotator(0,0,0));
+	TeleportTo(spawnPoint+FVector(0,0,100),FRotator(0,0,0));
 	GetMesh()->SetSimulatePhysics(false);
 	GetMesh()->SetCollisionProfileName(TEXT("CharacterMesh"));
+	GetMesh()->SetRelativeLocation(FVector(0,0,-90));
+	GetMesh()->SetRelativeRotation(FRotator(0,-90,0));
+	
+	GetMovementComponent()->SetComponentTickEnabled(true);
 	
 	Health = StartingHealth;
 	
