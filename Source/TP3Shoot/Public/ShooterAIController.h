@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Perception/AISenseConfig_Sight.h"
+#include "Perception/AIPerceptionComponent.h" 
+#include "Perception/AIPerceptionTypes.h"
 #include "ShooterAIController.generated.h"
+
 UCLASS()
 class TP3SHOOT_API AShooterAIController : public AAIController
 {
@@ -12,6 +16,9 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 	
 	AShooterAIController(const FObjectInitializer& ObjectInitializer);
 	virtual void OnPossess(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
 	UPROPERTY(Transient)
 	class UBehaviorTreeComponent* BehaviorTreeComponent;

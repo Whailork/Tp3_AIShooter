@@ -22,7 +22,7 @@ AShooterAIController::AShooterAIController(const FObjectInitializer& ObjectIniti
 
     SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
 
-    SightConfig->PeripheralVisionAngleDegrees = 90.0f;
+    SightConfig->PeripheralVisionAngleDegrees = 45.0f;
     SightConfig->SightRadius = 3000.0f;
     SightConfig->SetMaxAge(10.0f);
     SightConfig->AutoSuccessRangeFromLastSeenLocation = 200.0f;
@@ -30,6 +30,9 @@ AShooterAIController::AShooterAIController(const FObjectInitializer& ObjectIniti
     SightConfig->DetectionByAffiliation.bDetectEnemies = true;
     SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
     SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+
+    PerceptionComponent->ConfigureSense(*SightConfig);
+    PerceptionComponent->SetDominantSense(UAISense_Sight::StaticClass());
 
 }
 
@@ -39,6 +42,11 @@ void AShooterAIController::OnPossess(APawn* InPawn)
     // Cast your Character/Pawn to get access to the attributes
     if (auto AICharactere = Cast<AAICharacter>(InPawn))
     {
+
+        if (PerceptionComponent)
+        {
+            PerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &AShooterAIController::OnTargetPerceptionUpdated);
+        }
 
         // Check if the assets has been selected in the editor
         if (AICharactere->TreeAsset) {
@@ -78,5 +86,14 @@ void AShooterAIController::OnPossess(APawn* InPawn)
             }
             */
         }
+    }
+}
+
+void AShooterAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
+{
+    // Check if the perceived actor is valid and log the detection
+    if (Stimulus.WasSuccessfullySensed())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Detected: %s"), *Actor->GetName());
     }
 }
