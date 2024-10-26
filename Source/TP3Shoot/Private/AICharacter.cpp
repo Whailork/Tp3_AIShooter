@@ -49,13 +49,36 @@ AAICharacter::AAICharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+	
 }
 
 // Called when the game starts or when spawned
 void AAICharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	Health = StartingHealth;
 	
+}
+
+int AAICharacter::getStartingHealth()
+{
+	return StartingHealth;
+}
+
+void AAICharacter::loseHealth(int amount)
+{
+	Health -= amount;
+}
+
+int AAICharacter::getHealth()
+{
+	return Health;
+}
+
+bool AAICharacter::isAlly()
+{
+	return ally;
 }
 
 // Called every frame
@@ -117,6 +140,7 @@ void AAICharacter::StopAiming()
 void AAICharacter::Fire()
 {
 	FVector Start, LineTraceEnd, ForwardVector;
+	FHitResult HitResult;
 
 	if (IsAiming)
 	{
@@ -138,6 +162,17 @@ void AAICharacter::Fire()
 		// Get End Point
 		LineTraceEnd = Start + (ForwardVector * 10000);
 	}
+
+	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_Visibility);
+	if(bSuccess)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("true"));	
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("false"));	
+	}
+	
 }
 
 void AAICharacter::BoostSpeed()

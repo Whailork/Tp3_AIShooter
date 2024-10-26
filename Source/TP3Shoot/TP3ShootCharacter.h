@@ -29,9 +29,20 @@ public:
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
+	UPROPERTY(EditAnywhere)
+	int Health;
+	UPROPERTY(EditAnywhere)
+	int StartingHealth;
+	UPROPERTY(EditAnywhere)
+	int GunDamage;
 
+	int getStartingHealth();
+	void loseHealth(int amount);
+	UFUNCTION(BlueprintCallable)
+	int getHealth();
 protected:
 
+	virtual void BeginPlay() override;
 	// Add a gun skeletal mesh component
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USkeletalMeshComponent* SK_Gun;

@@ -2,6 +2,7 @@
 
 #include "TP3ShootCharacter.h"
 
+#include "AICharacter.h"
 #include "TimerManager.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -71,6 +72,28 @@ ATP3ShootCharacter::ATP3ShootCharacter()
 	StimuliSource->RegisterWithPerceptionSystem();
 }
 
+
+int ATP3ShootCharacter::getStartingHealth()
+{
+	return StartingHealth;
+}
+
+void ATP3ShootCharacter::loseHealth(int amount)
+{
+	Health -= amount;
+}
+
+int ATP3ShootCharacter::getHealth()
+{
+	return Health;
+}
+
+void ATP3ShootCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	Health = StartingHealth;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 
@@ -131,7 +154,8 @@ void ATP3ShootCharacter::StopAiming()
 void ATP3ShootCharacter::Fire()
 {
 	FVector Start, LineTraceEnd, ForwardVector;
-
+	FHitResult HitResult;
+	
 	if (IsAiming)
 	{
 
@@ -152,6 +176,19 @@ void ATP3ShootCharacter::Fire()
 		// Get End Point
 		LineTraceEnd = Start + (ForwardVector * 10000);
 	}
+
+	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_WorldDynamic);
+	AActor* test = HitResult.HitObjectHandle.FetchActor();
+	if(auto hitCharacter = Cast<AAICharacter>(test))
+	{
+		if(!hitCharacter->isAlly())
+		{
+			hitCharacter->loseHealth(GunDamage);
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
+		}
+		
+	}
+	
 }
 
 
