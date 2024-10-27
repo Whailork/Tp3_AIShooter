@@ -50,11 +50,11 @@ protected:
 
 	// Particle Start
 	UPROPERTY(EditAnywhere, Category = Gameplay)
-	class UParticleSystem* ParticleStart;
+	class UNiagaraSystem* ParticleStart;
 
 	// Particle Impact
 	UPROPERTY(EditAnywhere, Category = Gameplay)
-	class UParticleSystem* ParticleImpact;
+	class UNiagaraSystem* ParticleImpact;
 
 	// Fire animation
 	UPROPERTY(EditAnywhere, Category = Gameplay)
@@ -99,7 +99,7 @@ protected:
 
 	void RemoveSpeedBoost();
 
-	void FireParticle(FVector Start, FVector Impact);
+	void FireParticle(FVector Start,FHitResult &Impact);
 
 protected:
 	// APawn interface
