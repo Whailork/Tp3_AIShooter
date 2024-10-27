@@ -15,6 +15,8 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include <Perception/AISense_Sight.h>
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 
 
@@ -182,9 +184,10 @@ void ATP3ShootCharacter::Fire()
 		LineTraceEnd = Start + (ForwardVector * 10000);
 	}
 
+	
 	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_WorldDynamic);
-	AActor* test = HitResult.HitObjectHandle.FetchActor();
-	if(auto hitCharacter = Cast<AAICharacter>(test))
+	FireParticle(Start,HitResult);
+	if(auto hitCharacter = Cast<AAICharacter>(HitResult.HitObjectHandle.FetchActor()))
 	{
 		if(!hitCharacter->isAlly())
 		{
@@ -221,22 +224,28 @@ void ATP3ShootCharacter::RemoveSpeedBoost()
 }
 
 
-void ATP3ShootCharacter::FireParticle(FVector Start, FVector Impact)
+void ATP3ShootCharacter::FireParticle(FVector Start, FHitResult &Impact)
 {
 	if (!ParticleStart || !ParticleImpact) return;
+	
+	//FTransform ParticleT;
 
-	FTransform ParticleT;
+	//P//articleT.SetLocation(Start);
 
-	ParticleT.SetLocation(Start);
+	//ParticleT.SetScale3D(FVector(0.25, 0.25, 0.25));
 
-	ParticleT.SetScale3D(FVector(0.25, 0.25, 0.25));
-
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleStart, ParticleT, true);
+	
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleStart, Start);
 
 	// Spawn particle at impact point
-	ParticleT.SetLocation(Impact);
+	//ParticleT.SetLocation(Impact);
 
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleImpact, ParticleT, true);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Impact.ImpactPoint.ToString());
+	const FVector impact = FVector(Impact.ImpactPoint.X,Impact.ImpactPoint.Y,Impact.ImpactPoint.Z);
+	const TConstArrayView<FVector> points = {Start,impact};
+	TArray<FVector> test = {Start,impact};
+    DrawCentripetalCatmullRomSpline(GetWorld(),points,FColor::Blue,0.5,8,false,2,0,2);
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleImpact, Impact.ImpactPoint);
 
 }
 
