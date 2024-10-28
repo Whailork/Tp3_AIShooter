@@ -186,7 +186,7 @@ void ATP3ShootCharacter::Fire()
 
 	
 	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_WorldDynamic);
-	FireParticle(Start,HitResult);
+	FireParticle(Start,HitResult,SK_Gun->GetSocketLocation("MuzzleFlash"));
 	if(auto hitCharacter = Cast<AAICharacter>(HitResult.HitObjectHandle.FetchActor()))
 	{
 		if(!hitCharacter->isAlly())
@@ -224,7 +224,7 @@ void ATP3ShootCharacter::RemoveSpeedBoost()
 }
 
 
-void ATP3ShootCharacter::FireParticle(FVector Start, FHitResult &Impact)
+void ATP3ShootCharacter::FireParticle(FVector Start, FHitResult &Impact, FVector particleStart)
 {
 	if (!ParticleStart || !ParticleImpact) return;
 	
@@ -235,7 +235,7 @@ void ATP3ShootCharacter::FireParticle(FVector Start, FHitResult &Impact)
 	//ParticleT.SetScale3D(FVector(0.25, 0.25, 0.25));
 
 	
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleStart, Start);
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleStart, particleStart,GetActorRotation());
 
 	// Spawn particle at impact point
 	//ParticleT.SetLocation(Impact);
@@ -245,7 +245,7 @@ void ATP3ShootCharacter::FireParticle(FVector Start, FHitResult &Impact)
 	const TConstArrayView<FVector> points = {Start,impact};
 	TArray<FVector> test = {Start,impact};
     DrawCentripetalCatmullRomSpline(GetWorld(),points,FColor::Blue,0.5,8,false,2,0,2);
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleImpact, Impact.ImpactPoint);
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleImpact, Impact.ImpactPoint,GetActorRotation());
 
 }
 
