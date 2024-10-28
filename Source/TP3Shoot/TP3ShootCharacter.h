@@ -99,7 +99,7 @@ protected:
 
 	void RemoveSpeedBoost();
 
-	void FireParticle(FVector Start,FHitResult &Impact);
+	void FireParticle(FVector Start,FHitResult &Impact, FVector particleStart);
 
 protected:
 	// APawn interface
