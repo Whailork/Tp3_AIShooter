@@ -15,8 +15,6 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include <Perception/AISense_Sight.h>
-#include "NiagaraComponent.h"
-#include "NiagaraFunctionLibrary.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 
 
@@ -83,10 +81,6 @@ int ATP3ShootCharacter::getStartingHealth()
 void ATP3ShootCharacter::loseHealth(int amount)
 {
 	Health -= amount;
-	if( Health <= 0)
-	{
-		Destroy();
-	}
 }
 
 int ATP3ShootCharacter::getHealth()
@@ -98,7 +92,6 @@ void ATP3ShootCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	Health = StartingHealth;
-	spawnPoint = GetActorLocation();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -184,10 +177,9 @@ void ATP3ShootCharacter::Fire()
 		LineTraceEnd = Start + (ForwardVector * 10000);
 	}
 
-	
 	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_WorldDynamic);
-	FireParticle(Start,HitResult,SK_Gun->GetSocketLocation("MuzzleFlash"));
-	if(auto hitCharacter = Cast<AAICharacter>(HitResult.HitObjectHandle.FetchActor()))
+	AActor* test = HitResult.HitObjectHandle.FetchActor();
+	if(auto hitCharacter = Cast<AAICharacter>(test))
 	{
 		if(!hitCharacter->isAlly())
 		{
@@ -224,28 +216,22 @@ void ATP3ShootCharacter::RemoveSpeedBoost()
 }
 
 
-void ATP3ShootCharacter::FireParticle(FVector Start, FHitResult &Impact, FVector particleStart)
+void ATP3ShootCharacter::FireParticle(FVector Start, FVector Impact)
 {
 	if (!ParticleStart || !ParticleImpact) return;
-	
-	//FTransform ParticleT;
 
-	//P//articleT.SetLocation(Start);
+	FTransform ParticleT;
 
-	//ParticleT.SetScale3D(FVector(0.25, 0.25, 0.25));
+	ParticleT.SetLocation(Start);
 
-	
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleStart, particleStart,GetActorRotation());
+	ParticleT.SetScale3D(FVector(0.25, 0.25, 0.25));
+
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleStart, ParticleT, true);
 
 	// Spawn particle at impact point
-	//ParticleT.SetLocation(Impact);
+	ParticleT.SetLocation(Impact);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Impact.ImpactPoint.ToString());
-	const FVector impact = FVector(Impact.ImpactPoint.X,Impact.ImpactPoint.Y,Impact.ImpactPoint.Z);
-	const TConstArrayView<FVector> points = {Start,impact};
-	TArray<FVector> test = {Start,impact};
-    DrawCentripetalCatmullRomSpline(GetWorld(),points,FColor::Blue,0.5,8,false,2,0,2);
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleImpact, Impact.ImpactPoint,GetActorRotation());
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleImpact, ParticleT, true);
 
 }
 

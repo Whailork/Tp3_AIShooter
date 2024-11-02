@@ -45,16 +45,12 @@ public:
 	int Health;
 	UPROPERTY(EditAnywhere)
 	int GunDamage;
-
-	FTimerHandle RespawnTimerHandle;
-	FVector spawnPoint;
 	UFUNCTION(BlueprintCallable)
 	int getStartingHealth();
 	void loseHealth(int amount);
 	UFUNCTION(BlueprintCallable)
 	int getHealth();
 
-	void Respawn();
 	UFUNCTION(BlueprintCallable)
 	bool isAlly();
 	// Called every frame

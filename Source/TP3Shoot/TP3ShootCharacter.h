@@ -35,7 +35,6 @@ public:
 	int StartingHealth;
 	UPROPERTY(EditAnywhere)
 	int GunDamage;
-	FVector spawnPoint;
 
 	int getStartingHealth();
 	void loseHealth(int amount);
@@ -50,11 +49,11 @@ protected:
 
 	// Particle Start
 	UPROPERTY(EditAnywhere, Category = Gameplay)
-	class UNiagaraSystem* ParticleStart;
+	class UParticleSystem* ParticleStart;
 
 	// Particle Impact
 	UPROPERTY(EditAnywhere, Category = Gameplay)
-	class UNiagaraSystem* ParticleImpact;
+	class UParticleSystem* ParticleImpact;
 
 	// Fire animation
 	UPROPERTY(EditAnywhere, Category = Gameplay)
@@ -99,7 +98,7 @@ protected:
 
 	void RemoveSpeedBoost();
 
-	void FireParticle(FVector Start,FHitResult &Impact, FVector particleStart);
+	void FireParticle(FVector Start, FVector Impact);
 
 protected:
 	// APawn interface
