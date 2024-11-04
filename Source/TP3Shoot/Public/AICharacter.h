@@ -67,14 +67,13 @@ public:
 
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USkeletalMeshComponent* SK_Gun;
-
 	// Particle Start
 	UPROPERTY(EditAnywhere, Category = Gameplay)
-	class UParticleSystem* ParticleStart;
+	class UNiagaraSystem* ParticleStart;
 
 	// Particle Impact
 	UPROPERTY(EditAnywhere, Category = Gameplay)
-	class UParticleSystem* ParticleImpact;
+	class UNiagaraSystem* ParticleImpact;
 
 	// Fire animation
 	UPROPERTY(EditAnywhere, Category = Gameplay)
@@ -106,13 +105,14 @@ public:
 	void StopAiming();
 
 	// Firing function
-	void Fire();
+	UFUNCTION(BlueprintCallable)
+	void Fire(AActor* Target);
 
 	void BoostSpeed();
 
 	void RemoveSpeedBoost();
 
-	void FireParticle(FVector Start, FVector Impact);
+	void FireParticle(FVector Start, FHitResult &Impact,FVector particleStart);
 
 	FVector FindNextWanderPoint();
 	// Is Aiming
