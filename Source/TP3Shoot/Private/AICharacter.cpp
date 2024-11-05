@@ -3,6 +3,7 @@
 
 #include "AICharacter.h"
 
+#include "NiagaraFunctionLibrary.h"
 #include "TimerManager.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -166,40 +167,33 @@ void AAICharacter::StopAiming()
 	IsAiming = false;
 }
 
-void AAICharacter::Fire()
+void AAICharacter::Fire(AActor* Target)
 {
 	FVector Start, LineTraceEnd, ForwardVector;
 	FHitResult HitResult;
 
-	if (IsAiming)
+
+	// Get muzzle location
+	Start = SK_Gun->GetSocketLocation("MuzzleFlash");
+
+	// Get Rotation Forward Vector
+	ForwardVector = FollowCamera->GetForwardVector();
+
+	// Get End Point
+	LineTraceEnd = Start + (ForwardVector * 10000);
+	
+
+	
+	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_WorldDynamic);
+	FireParticle(Start,HitResult,SK_Gun->GetSocketLocation("MuzzleFlash"));
+	if(auto hitCharacter = Cast<AAICharacter>(HitResult.HitObjectHandle.FetchActor()))
 	{
-
-		Start = FollowCamera->GetComponentLocation();
-
-		ForwardVector = FollowCamera->GetForwardVector();
-
-		LineTraceEnd = Start + (ForwardVector * 10000);
-	}
-	else {
-
-		// Get muzzle location
-		Start = SK_Gun->GetSocketLocation("MuzzleFlash");
-
-		// Get Rotation Forward Vector
-		ForwardVector = FollowCamera->GetForwardVector();
-
-		// Get End Point
-		LineTraceEnd = Start + (ForwardVector * 10000);
-	}
-
-	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_Visibility);
-	if(bSuccess)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("true"));	
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("false"));	
+		if(!hitCharacter->isAlly())
+		{
+			hitCharacter->loseHealth(GunDamage);
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
+		}
+		
 	}
 	
 }
@@ -225,22 +219,28 @@ void AAICharacter::RemoveSpeedBoost()
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 }
 
-void AAICharacter::FireParticle(FVector Start, FVector Impact)
+void AAICharacter::FireParticle(FVector Start, FHitResult &Impact,FVector particleStart)
 {
 	if (!ParticleStart || !ParticleImpact) return;
+	
+	//FTransform ParticleT;
 
-	FTransform ParticleT;
+	//P//articleT.SetLocation(Start);
 
-	ParticleT.SetLocation(Start);
+	//ParticleT.SetScale3D(FVector(0.25, 0.25, 0.25));
 
-	ParticleT.SetScale3D(FVector(0.25, 0.25, 0.25));
-
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleStart, ParticleT, true);
+	
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleStart, particleStart,GetActorRotation());
 
 	// Spawn particle at impact point
-	ParticleT.SetLocation(Impact);
+	//ParticleT.SetLocation(Impact);
 
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleImpact, ParticleT, true);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Impact.ImpactPoint.ToString());
+	const FVector impact = FVector(Impact.ImpactPoint.X,Impact.ImpactPoint.Y,Impact.ImpactPoint.Z);
+	const TConstArrayView<FVector> points = {Start,impact};
+	TArray<FVector> test = {Start,impact};
+	DrawCentripetalCatmullRomSpline(GetWorld(),points,FColor::Blue,0.5,8,false,2,0,2);
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleImpact, Impact.ImpactPoint,GetActorRotation());
 }
 
 FVector AAICharacter::FindNextWanderPoint()
