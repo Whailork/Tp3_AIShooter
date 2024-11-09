@@ -9,6 +9,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
+#include "TP3Shoot/TP3ShootCharacter.h"
 
 AShooterAIController::AShooterAIController(const FObjectInitializer& ObjectInitializer)
 {
@@ -23,10 +24,10 @@ AShooterAIController::AShooterAIController(const FObjectInitializer& ObjectIniti
     SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
 
     SightConfig->PeripheralVisionAngleDegrees = 45.0f;
-    SightConfig->SightRadius = 3000.0f;
-    SightConfig->SetMaxAge(10.0f);
-    SightConfig->AutoSuccessRangeFromLastSeenLocation = 200.0f;
-    SightConfig->LoseSightRadius = 3500;
+    SightConfig->SightRadius = 10.0f;
+    SightConfig->SetMaxAge(6.0f);
+    SightConfig->AutoSuccessRangeFromLastSeenLocation = 2.0f;
+    SightConfig->LoseSightRadius = 12.0f;
     SightConfig->DetectionByAffiliation.bDetectEnemies = true;
     SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
     SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
@@ -91,9 +92,71 @@ void AShooterAIController::OnPossess(APawn* InPawn)
 
 void AShooterAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-    // Check if the perceived actor is valid and log the detection
-    if (Stimulus.WasSuccessfullySensed())
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Detected: %s"), *Actor->GetName());
+    
+    if (auto AiTarget = Cast<AAICharacter>(Actor))
+    {       
+        int TeamId = Cast <AAICharacter>(GetPawn())->TeamId;
+
+        if (!AiTarget || AiTarget->TeamId == TeamId) return;
+
+        if (Stimulus.Type == UAISense::GetSenseID<UAISense_Sight>())
+        {
+            // if stimulus is sight, check if stimulus is sensed
+            if (Stimulus.WasSuccessfullySensed())
+            {
+                // Set can see player to true
+                BlackboardComponent->SetValueAsBool("CanSeeEnemy", true);
+                // Set target actor
+                BlackboardComponent->SetValueAsObject("Enemy", AiTarget);
+            }
+            else
+            {
+                BlackboardComponent->SetValueAsBool("CanSeeEnemy", false);
+                BlackboardComponent->SetValueAsObject("Enemy", nullptr);
+                BlackboardComponent->SetValueAsVector("LastKnownLocation", AiTarget->GetActorLocation());
+            }
+        }
+        
     }
+
+    else if (auto PlayerTarget = Cast<ATP3ShootCharacter>(Actor))
+    {
+        
+        int TeamId = Cast <AAICharacter>(GetPawn())->TeamId;
+
+        if (!PlayerTarget || PlayerTarget->TeamId == TeamId) return;
+
+        if (Stimulus.Type == UAISense::GetSenseID<UAISense_Sight>())
+        {
+            // if stimulus is sight, check if stimulus is sensed
+            if (Stimulus.WasSuccessfullySensed())
+            {
+                // Set can see player to true
+                BlackboardComponent->SetValueAsBool("CanSeeEnemy", true);
+                // Set target actor
+                BlackboardComponent->SetValueAsObject("Enemy", PlayerTarget);
+            }
+            else
+            {
+                BlackboardComponent->SetValueAsBool("CanSeeEnemy", false);
+                BlackboardComponent->SetValueAsObject("Enemy", nullptr);
+                BlackboardComponent->SetValueAsVector("LastKnownLocation", PlayerTarget->GetActorLocation());
+            }
+        }
+        
+    }
+    
+}
+
+void AShooterAIController::ResetHealthLost()
+{
+    BlackboardComponent->SetValueAsBool("IsUnderFire", false);
+}
+
+void AShooterAIController::OnHealthLost()
+{
+    BlackboardComponent->SetValueAsBool("IsUnderFire", true);
+    BlackboardComponent->SetValueAsObject("Shooter", Cast<AAICharacter>(GetPawn())->ShooterActor);
+    GetWorld()->GetTimerManager().SetTimer(HealthLostTimerHandle, this, &AShooterAIController::ResetHealthLost, 10.0f, false);
+    
 }

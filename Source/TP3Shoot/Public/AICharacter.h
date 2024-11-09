@@ -25,16 +25,23 @@ class TP3SHOOT_API AAICharacter : public ACharacter
 
 	UPROPERTY(EditAnywhere, Category = "Teams")
 	bool ally;
+	
 
 public:
 	// Sets default values for this character's properties
 	AAICharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
+	uint8 TeamId;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
+	UPROPERTY()
+	AActor* ShooterActor;
+	
 	UPROPERTY(EditAnywhere)
 	float wanderRadius;
 	UPROPERTY(EditAnywhere)
@@ -43,6 +50,7 @@ public:
 	int StartingHealth;
 	
 	int Health;
+	
 	UPROPERTY(EditAnywhere)
 	int GunDamage;
 
@@ -51,6 +59,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int getStartingHealth();
 	void loseHealth(int amount);
+	void setShooter(AActor* Shooter);
 	UFUNCTION(BlueprintCallable)
 	int getHealth();
 

@@ -20,6 +20,10 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 	UFUNCTION()
 	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
 
+	void ResetHealthLost();
+	
+	FTimerHandle HealthLostTimerHandle;
+
 	UPROPERTY(Transient)
 	class UBehaviorTreeComponent* BehaviorTreeComponent;
 	UPROPERTY(Transient)
@@ -31,4 +35,6 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	class UAISenseConfig_Sight* SightConfig;
 
+	public:
+	void OnHealthLost();
 };
