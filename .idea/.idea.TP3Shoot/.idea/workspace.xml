@@ -12,23 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9529b6f6-0555-44c5-ba6c-e4ceda8bf9e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/BB_AICharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/BB_AICharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/BP_AiQueryContext.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/BP_AiQueryContext.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/BTT_FireAt.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/BTT_FireAt.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/BTT_FocusTarget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/BTT_FocusTarget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/BT_AICharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/BT_AICharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_AICharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_AICharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/AR4/SK_AR4_X.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/AR4/SK_AR4_X.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Maps/ThirdPersonMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Maps/ThirdPersonMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/0/WA/JBAZEA4AFCFLIFATNOIMVS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/0/WA/JBAZEA4AFCFLIFATNOIMVS.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/1/RY/FIWDNY2ZB0Q9JYPDPYO7C9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/1/RY/FIWDNY2ZB0Q9JYPDPYO7C9.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/O3/9F4EE34USI9SG3577MXCR4.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/O3/9F4EE34USI9SG3577MXCR4.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Private/ShooterAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Private/ShooterAIController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Public/ShooterAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Public/ShooterAIController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,14 +79,43 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2oas6FrFKlpfmBvyFunHwaedgwW" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -109,7 +126,7 @@
     "C++ Project.TP3Shoot.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "Catherine",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -639,6 +656,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731118845786</updated>
       <workItem from="1731118849089" duration="4568000" />
+      <workItem from="1731157707770" duration="2454000" />
     </task>
     <servers />
   </component>
@@ -647,26 +665,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp</url>
-          <line>261</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp</url>
-          <line>194</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp</url>
-          <line>191</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -12,6 +12,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "TP3Shoot/TP3ShootCharacter.h"
 
 // Sets default values
@@ -186,9 +187,10 @@ void AAICharacter::Fire(AActor* Target)
 
 
 	// Get muzzle location
-	Start = SK_Gun->GetSocketLocation("MuzzleFlash");
-
+	Start = SK_Gun->GetSocketLocation("Muzzle");
+	AShooterAIController* AIController = Cast<AShooterAIController>(GetController());
 	// Get Rotation Forward Vector
+	
 	ForwardVector = FollowCamera->GetForwardVector();
 
 	// Get End Point
@@ -197,10 +199,10 @@ void AAICharacter::Fire(AActor* Target)
 
 	
 	bool bSuccess = Controller->GetWorld()->LineTraceSingleByChannel(HitResult,Start,LineTraceEnd,ECollisionChannel::ECC_WorldDynamic);
-	FireParticle(Start,HitResult,SK_Gun->GetSocketLocation("MuzzleFlash"));
+	FireParticle(Start,HitResult,SK_Gun->GetSocketLocation("Muzzle"));
 	if(auto hitCharacter = Cast<AAICharacter>(HitResult.HitObjectHandle.FetchActor()))
 	{
-		if(hitCharacter->isAlly() == isAlly())
+		if(hitCharacter->isAlly() != isAlly())
 		{
 			hitCharacter->loseHealth(GunDamage);
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
