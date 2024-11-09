@@ -37,4 +37,6 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 
 	public:
 	void OnHealthLost();
+	void OnDeath();
+	void OnRespawn();
 };

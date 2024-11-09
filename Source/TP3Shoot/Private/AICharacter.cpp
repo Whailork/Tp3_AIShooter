@@ -12,6 +12,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "TP3Shoot/TP3ShootCharacter.h"
 
 // Sets default values
 AAICharacter::AAICharacter()
@@ -73,6 +74,7 @@ int AAICharacter::getStartingHealth()
 void AAICharacter::loseHealth(int amount)
 {
 	Health -= amount;
+	AShooterAIController* AIController = Cast<AShooterAIController>(GetController());
 	if( Health <= 0)
 	{
 		auto rotation = GetActorTransform().GetRotation();
@@ -83,9 +85,9 @@ void AAICharacter::loseHealth(int amount)
 		GetMovementComponent()->SetComponentTickEnabled(false);
 		GetMesh()->SetSimulatePhysics(true);
 		GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
-		
+		AIController->OnDeath();
 	}
-	AShooterAIController* AIController = Cast<AShooterAIController>(GetController());
+	
 	AIController->OnHealthLost();
 	
 }
@@ -111,7 +113,8 @@ void AAICharacter::Respawn()
 	GetMovementComponent()->SetComponentTickEnabled(true);
 	
 	Health = StartingHealth;
-	
+	AShooterAIController* AIController = Cast<AShooterAIController>(GetController());
+	AIController->OnRespawn();
 	RespawnTimerHandle.Invalidate();
 }
 
@@ -197,12 +200,24 @@ void AAICharacter::Fire(AActor* Target)
 	FireParticle(Start,HitResult,SK_Gun->GetSocketLocation("MuzzleFlash"));
 	if(auto hitCharacter = Cast<AAICharacter>(HitResult.HitObjectHandle.FetchActor()))
 	{
-		if(!hitCharacter->isAlly())
+		if(hitCharacter->isAlly() == isAlly())
 		{
 			hitCharacter->loseHealth(GunDamage);
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
 		}
 		
+	}
+	else
+	{
+		if(auto hitPlayer = Cast<ATP3ShootCharacter>(HitResult.HitObjectHandle.FetchActor()))
+		{
+			if(!isAlly())
+			{
+				hitPlayer->loseHealth(GunDamage);
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("hit player"));	
+			}
+		
+		}
 	}
 	
 }

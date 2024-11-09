@@ -160,3 +160,15 @@ void AShooterAIController::OnHealthLost()
     GetWorld()->GetTimerManager().SetTimer(HealthLostTimerHandle, this, &AShooterAIController::ResetHealthLost, 10.0f, false);
     
 }
+
+void AShooterAIController::OnDeath()
+{
+    auto AICharactere = Cast<AAICharacter>(GetPawn());
+    BlackboardComponent->InitializeBlackboard(*AICharactere->TreeAsset->BlackboardAsset);
+    BlackboardComponent->SetValueAsBool("IsDead", true);
+}
+
+void AShooterAIController::OnRespawn()
+{
+    BlackboardComponent->SetValueAsBool("IsDead", false);
+}
