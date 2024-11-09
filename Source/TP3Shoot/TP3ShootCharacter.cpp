@@ -192,6 +192,7 @@ void ATP3ShootCharacter::Fire()
 		if(!hitCharacter->isAlly())
 		{
 			hitCharacter->loseHealth(GunDamage);
+			hitCharacter->setShooter(this);
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
 		}
 		

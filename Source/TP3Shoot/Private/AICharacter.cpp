@@ -4,6 +4,7 @@
 #include "AICharacter.h"
 
 #include "NiagaraFunctionLibrary.h"
+#include "ShooterAIController.h"
 #include "TimerManager.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -84,6 +85,14 @@ void AAICharacter::loseHealth(int amount)
 		GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
 		
 	}
+	AShooterAIController* AIController = Cast<AShooterAIController>(GetController());
+	AIController->OnHealthLost();
+	
+}
+
+void AAICharacter::setShooter(AActor* Shooter)
+{
+	ShooterActor = Shooter;
 }
 
 int AAICharacter::getHealth()
