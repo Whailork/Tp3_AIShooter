@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Perception/AISenseConfig_Sight.h"
+#include "Perception/AIPerceptionComponent.h" 
+#include "Perception/AIPerceptionTypes.h"
 #include "ShooterAIController.generated.h"
+
 UCLASS()
 class TP3SHOOT_API AShooterAIController : public AAIController
 {
@@ -12,6 +16,13 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 	
 	AShooterAIController(const FObjectInitializer& ObjectInitializer);
 	virtual void OnPossess(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+
+	void ResetHealthLost();
+	
+	FTimerHandle HealthLostTimerHandle;
 
 	UPROPERTY(Transient)
 	class UBehaviorTreeComponent* BehaviorTreeComponent;
@@ -24,4 +35,8 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	class UAISenseConfig_Sight* SightConfig;
 
+	public:
+	void OnHealthLost();
+	void OnDeath();
+	void OnRespawn();
 };
