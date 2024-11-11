@@ -216,7 +216,7 @@ void AAICharacter::Fire(AActor* Target)
 		if(hitCharacter->isAlly() != isAlly())
 		{
 			hitCharacter->loseHealth(GunDamage);
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
 		}
 		
 	}
@@ -227,7 +227,7 @@ void AAICharacter::Fire(AActor* Target)
 			if(!isAlly())
 			{
 				hitPlayer->loseHealth(GunDamage);
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("hit player"));	
+				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("hit player"));	
 			}
 		
 		}
@@ -272,11 +272,19 @@ void AAICharacter::FireParticle(FVector Start, FHitResult &Impact,FVector partic
 	// Spawn particle at impact point
 	//ParticleT.SetLocation(Impact);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Impact.ImpactPoint.ToString());
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Impact.ImpactPoint.ToString());
 	const FVector impact = FVector(Impact.ImpactPoint.X,Impact.ImpactPoint.Y,Impact.ImpactPoint.Z);
 	const TConstArrayView<FVector> points = {Start,impact};
 	TArray<FVector> test = {Start,impact};
-	DrawCentripetalCatmullRomSpline(GetWorld(),points,FColor::Blue,0.5,8,false,2,0,2);
+	if(ally)
+	{
+		DrawCentripetalCatmullRomSpline(GetWorld(),points,FColor::Blue,0.5,8,false,2,0,2);
+	}
+	else
+	{
+		DrawCentripetalCatmullRomSpline(GetWorld(),points,FColor::Yellow,0.5,8,false,2,0,2);
+	}
+	
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ParticleImpact, Impact.ImpactPoint,GetActorRotation());
 }
 
