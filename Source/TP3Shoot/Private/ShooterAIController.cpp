@@ -47,6 +47,7 @@ void AShooterAIController::OnPossess(APawn* InPawn)
         if (PerceptionComponent)
         {
             PerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &AShooterAIController::OnTargetPerceptionUpdated);
+            PerceptionComponent->OnTargetPerceptionForgotten.AddDynamic(this, &AShooterAIController::OnTargetPerceptionForgotten);
         }
 
         // Check if the assets has been selected in the editor
@@ -97,7 +98,7 @@ void AShooterAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus 
     {       
         int TeamId = Cast <AAICharacter>(GetPawn())->TeamId;
 
-        if (!AiTarget || AiTarget->TeamId == TeamId) return;
+        if (!AiTarget || AiTarget->TeamId == TeamId || AiTarget->isDead) return;
 
         if (Stimulus.Type == UAISense::GetSenseID<UAISense_Sight>())
         {
@@ -148,16 +149,38 @@ void AShooterAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus 
     
 }
 
+void AShooterAIController::OnTargetPerceptionForgotten(AActor* Actor)
+{
+    ResetTarget();
+    ResetLastKnownLocation();
+}
+
+void AShooterAIController::ResetTarget()
+{
+    BlackboardComponent->SetValueAsObject("Enemy", nullptr);
+}
+
+void AShooterAIController::ResetLastKnownLocation()
+{
+    BlackboardComponent->ClearValue("LastKnownLocation");
+}
+
 void AShooterAIController::ResetHealthLost()
 {
     BlackboardComponent->SetValueAsBool("IsUnderFire", false);
+    BlackboardComponent->SetValueAsObject("Shooter", nullptr);
+    HealthLostTimerHandle.Invalidate();
 }
 
 void AShooterAIController::OnHealthLost()
 {
-    BlackboardComponent->SetValueAsBool("IsUnderFire", true);
-    BlackboardComponent->SetValueAsObject("Shooter", Cast<AAICharacter>(GetPawn())->ShooterActor);
-    GetWorld()->GetTimerManager().SetTimer(HealthLostTimerHandle, this, &AShooterAIController::ResetHealthLost, 10.0f, false);
+    if(BlackboardComponent->GetValueAsObject("Shooter") == nullptr)
+    {
+        BlackboardComponent->SetValueAsBool("IsUnderFire", true);
+        BlackboardComponent->SetValueAsObject("Shooter", Cast<AAICharacter>(GetPawn())->ShooterActor);
+        GetWorld()->GetTimerManager().SetTimer(HealthLostTimerHandle, this, &AShooterAIController::ResetHealthLost, 5.0f, false);
+    
+    }
     
 }
 

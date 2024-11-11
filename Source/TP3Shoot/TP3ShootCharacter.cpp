@@ -85,6 +85,7 @@ void ATP3ShootCharacter::loseHealth(int amount)
 	Health -= amount;
 	if( Health <= 0)
 	{
+		TeleportTo(spawnPoint+FVector(0,0,100),FRotator(0,0,0));
 		Destroy();
 	}
 }

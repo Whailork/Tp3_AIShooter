@@ -63,6 +63,7 @@ void AAICharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	Health = StartingHealth;
+	isDead = false;
 	spawnPoint = GetActorLocation();
 	
 }
@@ -79,7 +80,7 @@ void AAICharacter::loseHealth(int amount)
 	if( Health <= 0)
 	{
 		auto rotation = GetActorTransform().GetRotation();
-				
+		isDead = true;
 		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AAICharacter::Respawn, 3, false);
 		GetMovementComponent()->StopMovementImmediately();
 		GetMovementComponent()->StopActiveMovement();
@@ -105,6 +106,7 @@ int AAICharacter::getHealth()
 
 void AAICharacter::Respawn()
 {
+	isDead = false;
 	TeleportTo(spawnPoint+FVector(0,0,100),FRotator(0,0,0));
 	GetMesh()->SetSimulatePhysics(false);
 	GetMesh()->SetCollisionProfileName(TEXT("CharacterMesh"));
@@ -182,13 +184,23 @@ void AAICharacter::StopAiming()
 
 void AAICharacter::Fire(AActor* Target)
 {
+	AShooterAIController* AIController = Cast<AShooterAIController>(GetController());
 	FVector Start, LineTraceEnd, ForwardVector;
 	FHitResult HitResult;
 
+	if(auto shootTarget = Cast<AAICharacter>(Target))
+	{
+		if(shootTarget->isDead)
+		{
+			AIController->ResetTarget();
+			return;
+		}
+		
+	}
 
 	// Get muzzle location
 	Start = SK_Gun->GetSocketLocation("Muzzle");
-	AShooterAIController* AIController = Cast<AShooterAIController>(GetController());
+	
 	// Get Rotation Forward Vector
 	
 	ForwardVector = FollowCamera->GetForwardVector();
