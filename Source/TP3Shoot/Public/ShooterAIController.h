@@ -19,7 +19,10 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 
 	UFUNCTION()
 	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+	UFUNCTION()
+	void OnTargetPerceptionForgotten(AActor* Actor);
 
+	
 	void ResetHealthLost();
 	
 	FTimerHandle HealthLostTimerHandle;
@@ -39,4 +42,6 @@ class TP3SHOOT_API AShooterAIController : public AAIController
 	void OnHealthLost();
 	void OnDeath();
 	void OnRespawn();
+	void ResetTarget();
+	void ResetLastKnownLocation();
 };

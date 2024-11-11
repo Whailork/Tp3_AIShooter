@@ -40,6 +40,7 @@ public:
 	int GunDamage;
 	FVector spawnPoint;
 
+	UFUNCTION(BlueprintCallable)
 	int getStartingHealth();
 	void loseHealth(int amount);
 	UFUNCTION(BlueprintCallable)

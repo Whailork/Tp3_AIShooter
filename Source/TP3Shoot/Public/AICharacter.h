@@ -50,7 +50,7 @@ public:
 	int StartingHealth;
 	
 	int Health;
-	
+	bool isDead;
 	UPROPERTY(EditAnywhere)
 	int GunDamage;
 
