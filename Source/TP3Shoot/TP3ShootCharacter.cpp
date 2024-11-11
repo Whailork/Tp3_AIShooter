@@ -194,7 +194,7 @@ void ATP3ShootCharacter::Fire()
 		{
 			hitCharacter->loseHealth(GunDamage);
 			hitCharacter->setShooter(this);
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("hit character"));	
 		}
 		
 	}
@@ -242,7 +242,7 @@ void ATP3ShootCharacter::FireParticle(FVector Start, FHitResult &Impact, FVector
 	// Spawn particle at impact point
 	//ParticleT.SetLocation(Impact);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Impact.ImpactPoint.ToString());
+	//->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Impact.ImpactPoint.ToString());
 	const FVector impact = FVector(Impact.ImpactPoint.X,Impact.ImpactPoint.Y,Impact.ImpactPoint.Z);
 	const TConstArrayView<FVector> points = {Start,impact};
 	TArray<FVector> test = {Start,impact};

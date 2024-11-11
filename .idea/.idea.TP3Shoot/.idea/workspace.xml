@@ -14,9 +14,8 @@
     <list default="true" id="9529b6f6-0555-44c5-ba6c-e4ceda8bf9e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Lvl_MainMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Lvl_MainMenu.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot.Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot.Target.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/TP3ShootCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/TP3ShootCharacter.cpp" afterDir="false" />
     </list>
@@ -628,6 +627,8 @@
       <workItem from="1731157707770" duration="2454000" />
       <workItem from="1731348071458" duration="5965000" />
       <workItem from="1731355249536" duration="1517000" />
+      <workItem from="1731357857578" duration="245000" />
+      <workItem from="1731358354125" duration="542000" />
     </task>
     <servers />
   </component>
