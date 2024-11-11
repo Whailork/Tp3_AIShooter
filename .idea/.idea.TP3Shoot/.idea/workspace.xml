@@ -13,23 +13,12 @@
   <component name="ChangeListManager">
     <list default="true" id="9529b6f6-0555-44c5-ba6c-e4ceda8bf9e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TP3Shoot/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/BB_AICharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/BB_AICharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/BT_AICharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/BT_AICharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BehaviourTree/EnvQuery_TakeCover.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BehaviourTree/EnvQuery_TakeCover.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_AICharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_AICharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Maps/ThirdPersonMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Maps/ThirdPersonMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/0/WA/JBAZEA4AFCFLIFATNOIMVS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/0/WA/JBAZEA4AFCFLIFATNOIMVS.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/1/RY/FIWDNY2ZB0Q9JYPDPYO7C9.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/6/3S/EI0W5KOJHR0GQ6WPAMGMIR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/6/3S/EI0W5KOJHR0GQ6WPAMGMIR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/8/DA/SZ3SW1CB2P21YXCD437GKD.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot.Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot.Target.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Private/AICharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Private/ShooterAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Private/ShooterAIController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Public/AICharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Public/AICharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/Public/ShooterAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/Public/ShooterAIController.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/TP3ShootCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/TP3ShootCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TP3Shoot/TP3ShootCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TP3Shoot/TP3ShootCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -637,7 +626,8 @@
       <updated>1731118845786</updated>
       <workItem from="1731118849089" duration="4568000" />
       <workItem from="1731157707770" duration="2454000" />
-      <workItem from="1731348071458" duration="5679000" />
+      <workItem from="1731348071458" duration="5965000" />
+      <workItem from="1731355249536" duration="1517000" />
     </task>
     <servers />
   </component>

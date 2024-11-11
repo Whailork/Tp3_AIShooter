@@ -8,7 +8,7 @@ public class TP3ShootTarget : TargetRules
 	public TP3ShootTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
+		DefaultBuildSettings = BuildSettingsVersion.V5;
 		ExtraModuleNames.Add("TP3Shoot");
 	}
 }
